@@ -1,22 +1,24 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
-import axios from 'axios';
+import React, { Component } from 'react'
+import logo from './logo.svg'
+import './App.css'
+import axios from 'axios'
 import ListArticles from './components/ListArticles'
+import SearchForm from './components/SearchForm'
 
 class App extends Component {
   state = {
-    articles: []
+    articles: [1,2,3],
+    input: 'licorice'
   }
 
 axiosFetch = () => {
-  return axios.get('http://hn.algolia.com/api/v1/items/10')
+  return axios.get(`http://hn.algolia.com/api/v1/search?query=${this.state.input}`)
   .then(res => {
-    const allArticles = res.data.url;
-    // console.log(allArticles)
-    this.setState({ articles: allArticles});
+    const allArticles = res.data
+    this.setState({ articles: allArticles })
   })
 }
+
 render() {
   return (
     <div className="App">
@@ -24,10 +26,11 @@ render() {
         <img src={logo} className="App-logo" alt="logo" />
         <button onClick={this.axiosFetch}>Generate articles</button>
         <ListArticles article={this.state.articles}/>
+        <SearchForm />
       </header>
     </div>
-    );
+    )
   }
 }
 
-export default App;
+export default App
