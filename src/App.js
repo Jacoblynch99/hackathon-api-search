@@ -7,20 +7,29 @@ import SearchForm from './components/SearchForm'
 
 class App extends Component {
   state = {
-    articles: [1,2,3],
+    articles: [],
     input: 'licorice'
   }
 
 axiosFetch = () => {
   return axios.get(`http://hn.algolia.com/api/v1/search?query=${this.state.input}`)
   .then(res => {
-    const allArticles = res.hits.url
-    this.setState({ articles: allArticles })
+    const allArticles = res.data.hits
+    // this.setState({ articles: allArticles })
   })
 }
 
 onInput = (input) => {
-  this.setState({input: input})
+  this.setState({ input })
+}
+
+handleChange = (event) => {
+  this.setState({value: event.target.value})
+}
+
+handleSubmit = (event) => {
+  alert('test' + this.state.value)
+  event.preventDefault()
 }
 
 render() {
@@ -30,7 +39,7 @@ render() {
         <img src={logo} className="App-logo" alt="logo" />
         <button onClick={this.axiosFetch}>Generate articles</button>
         <ListArticles article={this.state.articles}/>
-        <SearchForm method={this.onInput}/>
+        <SearchForm onInput={this.onInput} handleChange={this.handleChange} handleSubmit={this.handleSubmit} state={this.state}/>
       </header>
     </div>
     )
