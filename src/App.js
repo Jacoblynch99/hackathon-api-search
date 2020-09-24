@@ -14,9 +14,13 @@ class App extends Component {
 axiosFetch = () => {
   return axios.get(`http://hn.algolia.com/api/v1/search?query=${this.state.input}`)
   .then(res => {
-    const allArticles = res.data
+    const allArticles = res.hits.url
     this.setState({ articles: allArticles })
   })
+}
+
+onInput = (input) => {
+  this.setState({input: input})
 }
 
 render() {
@@ -26,7 +30,7 @@ render() {
         <img src={logo} className="App-logo" alt="logo" />
         <button onClick={this.axiosFetch}>Generate articles</button>
         <ListArticles article={this.state.articles}/>
-        <SearchForm />
+        <SearchForm method={this.onInput}/>
       </header>
     </div>
     )
