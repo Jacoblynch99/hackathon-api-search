@@ -8,14 +8,39 @@ import SearchForm from './components/SearchForm'
 class App extends Component {
   state = {
     articles: [],
-    input: 'licorice'
+    input: '',
+    value: ''
   }
 
 axiosFetch = () => {
-  return axios.get(`http://hn.algolia.com/api/v1/search?query=${this.state.input}`)
-  .then(res => {
-    const allArticles = res.data.hits
-    // this.setState({ articles: allArticles })
+  return axios.get(`http://hn.algolia.com/api/v1/search?query=${this.state.input}&tags=story`)
+  .then(res => {    
+    const articles = res.data.hits
+    this.setState({ articles })
+  })
+}
+
+tagFetch = () => {
+  return axios.get(`http://hn.algolia.com/api/v1/search?query=${this.state.input}&tags=story`)
+  .then(res => {    
+    const articles = res.data.hits
+    this.setState({ articles })
+  })
+}
+
+dateFetch = () => {
+  return axios.get(`http://hn.algolia.com/api/v1/search?query=${this.state.input}&tags=story`)
+  .then(res => {    
+    const articles = res.data.hits
+    this.setState({ articles })
+  })
+}
+
+authorFetch = () => {
+  return axios.get(`http://hn.algolia.com/api/v1/search?query=${this.state.input}&tags=story`)
+  .then(res => {    
+    const articles = res.data.hits
+    this.setState({ articles })
   })
 }
 
@@ -24,12 +49,12 @@ onInput = (input) => {
 }
 
 handleChange = (event) => {
-  this.setState({value: event.target.value})
+  this.setState({ input: event.target.value, value: event.target.value })
 }
 
 handleSubmit = (event) => {
-  alert('test' + this.state.value)
   event.preventDefault()
+  this.axiosFetch()
 }
 
 render() {
@@ -38,7 +63,7 @@ render() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <button onClick={this.axiosFetch}>Generate articles</button>
-        <ListArticles article={this.state.articles}/>
+        <ListArticles articles={this.state.articles}/>
         <SearchForm onInput={this.onInput} handleChange={this.handleChange} handleSubmit={this.handleSubmit} state={this.state}/>
       </header>
     </div>

@@ -11,3 +11,24 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+li {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: orange;
+}
+
+#points {
+  color: springgreen
+}
+
+#author {
+  color: yellow
+}
+
+#date {
+  color: white
+}
