@@ -16,6 +16,7 @@ export default function ListArticles(props) {
             date={x.created_at.slice(0, 10)}
             tags={x._tags}
             state={props.state}
+            authorHandler={props.authorHandler}
           />
         )
       })}

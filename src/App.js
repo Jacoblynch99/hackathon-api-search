@@ -1,5 +1,4 @@
 import React, { Component } from "react"
-import logo from "./logo.svg"
 import "./App.css"
 import axios from "axios"
 import ListArticles from "./components/ListArticles"
@@ -12,7 +11,7 @@ class App extends Component {
     sortParam: "title",
   }
 
-  axiosFetch = () => {
+  allStoriesFetch = () => {
     return axios
       .get(
         `http://hn.algolia.com/api/v1/search?query=${this.state.input}&tags=story`
@@ -54,6 +53,15 @@ class App extends Component {
       })
   }
 
+  authorSpanFetch = (spanValue) => {
+    return axios
+      .get(`http://hn.algolia.com/api/v1/search?tags=story,author_${spanValue}`)
+      .then((res) => {
+        const articles = res.data.hits
+        this.setState({ articles })
+      })
+  }
+
   onInput = (input) => {
     this.setState({ input })
   }
@@ -66,11 +74,11 @@ class App extends Component {
     const param = this.state.sortParam
     e.preventDefault()
     if (param === "title") {
-      this.axiosFetch()
+      this.allStoriesFetch()
     } else if (param === "creation-date") {
       this.dateFetch()
     } else if (param === "tag") {
-      this.axiosFetch()
+      this.allStoriesFetch()
     } else if (param === "author") {
       this.authorFetch()
     }
@@ -81,12 +89,23 @@ class App extends Component {
     this.handleSubmit(e)
   }
 
+  authorHandler = (spanValue) => {
+    this.authorSpanFetch(spanValue)
+  }
+
+  componentDidMount() {
+    this.allStoriesFetch()
+  }
+
   render() {
     return (
       <div className="App">
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <button onClick={this.axiosFetch}>Generate articles</button>
+          <img
+            src={require("./hacker-news-logo.jpg")}
+            className="App-logo"
+            alt="HN"
+          />
           <SearchForm
             onInput={this.onInput}
             handleChange={this.handleChange}
@@ -94,7 +113,7 @@ class App extends Component {
             state={this.state}
             selectHandleChange={this.selectHandleChange}
           />
-          <ListArticles state={this.state} />
+          <ListArticles state={this.state} authorHandler={this.authorHandler} />
         </header>
       </div>
     )
