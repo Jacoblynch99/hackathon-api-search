@@ -1,5 +1,4 @@
-import React from 'react'
-
+import React from "react"
 
 export default class SearchForm extends React.Component {
   render() {
@@ -8,11 +7,7 @@ export default class SearchForm extends React.Component {
       <div>
         <label for="articles">Search By: </label>
 
-        <select
-          onChange={selectHandleChange}
-          name="articles"
-          id="articles"
-        >
+        <select onChange={selectHandleChange} name="articles" id="articles">
           <option value="title">Title</option>
           <option value="tag">Tag</option>
           <option value="author">Author</option>

@@ -46,7 +46,7 @@ class App extends Component {
   authorFetch = () => {
     return axios
       .get(
-        `http://hn.algolia.com/api/v1/search?query=${this.state.input}&tags=story`
+        `http://hn.algolia.com/api/v1/search?tags=story,author_${this.state.input}`
       )
       .then((res) => {
         const articles = res.data.hits
@@ -71,10 +71,12 @@ class App extends Component {
       this.dateFetch()
     } else if (param === "tag") {
       this.axiosFetch()
+    } else if (param === "author") {
+      this.authorFetch()
     }
   }
 
-   selectHandleChange = async (e) => {
+  selectHandleChange = async (e) => {
     await this.setState({ sortParam: e.target.value })
     this.handleSubmit(e)
   }
