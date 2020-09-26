@@ -38,7 +38,7 @@ axiosFetch = () => {
   if (this.state.value === 'creation-date') {
     return axios.get(`http://hn.algolia.com/api/v1/search?query=${this.state.input}`)
     .then(res => {
-      this.setState({ articles: res.data.hits })
+        this.setState({ articles: res.data.hits })
     })
   }
 }
