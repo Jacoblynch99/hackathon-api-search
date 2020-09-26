@@ -1,27 +1,31 @@
-import React from 'react'
-
+import React from "react"
 
 export default class SearchForm extends React.Component {
   render() {
-    const { articles, input } = this.props.state
+    const { state, handleChange, handleSubmit, selectHandleChange } = this.props
     return (
       <div>
-        <label for="articles">Search By:</label>
+        <form className="label" onKeyUp={handleSubmit}>
+          <label>
+            <input
+              placeholder="HACKER NEWS SEARCH"
+              type="text"
+              value={state.input}
+              onChange={handleChange}
+            />
+          </label>
+          <input type="submit" value="Submit" id="btn" />
+        </form>
 
-        <select name="articles" id="articles">
+        <label className="label" for="articles" id="search-by">
+          Search By:{" "}
+        </label>
+        <select onChange={selectHandleChange} name="articles" id="articles">
           <option value="title">Title</option>
           <option value="tag">Tag</option>
           <option value="author">Author</option>
           <option value="creation-date">Date Created</option>
         </select>
-        
-        <form onSubmit={this.props.handleSubmit}>
-          <label>
-            Enter Search:
-            <input type="text" value={input} onChange={this.handleChange} />
-          </label>
-          <input type="submit" value="Submit" />
-        </form>
       </div>
     )
   }
