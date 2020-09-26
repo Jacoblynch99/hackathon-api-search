@@ -4,7 +4,7 @@ import _ from 'lodash';
 
 export default function ListArticles(props) {
   return (
-    <ul>
+    <ul >
       {props.article.map((item) => {
         if (item.url) {
           return (        
