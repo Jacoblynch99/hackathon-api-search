@@ -1,14 +1,19 @@
-import React from "react"
+import React from "react";
 
 export default class SearchForm extends React.Component {
   render() {
-    const { state, handleChange, handleSubmit, selectHandleChange } = this.props
+    const {
+      state,
+      handleChange,
+      handleSubmit,
+      selectHandleChange,
+    } = this.props;
     return (
       <div>
         <form className="label" onKeyUp={handleSubmit}>
           <label>
             <input
-              placeholder="HACKER NEWS SEARCH"
+              placeholder="SEARCH HACKER NEWS"
               type="text"
               value={state.input}
               onChange={handleChange}
@@ -27,6 +32,6 @@ export default class SearchForm extends React.Component {
           <option value="creation-date">Date Created</option>
         </select>
       </div>
-    )
+    );
   }
 }

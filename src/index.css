@@ -19,32 +19,45 @@ code {
 
 input {
   font-size: 18px;
-  border: 3px solid violet;
+  border: 2px solid orange;
+  background-color: black;
 }
 
 input:focus {
   background-color: black;
   color: azure;
+  border-color: white;
 }
 
 ::placeholder {
   font-weight: 600;
   font-size: 15px;
-  color: white;
+  color: rgba(255, 166, 0, 0.596);
   background-color: black;
+}
+
+:focus::-webkit-input-placeholder {
+  color: orange;
+}
+
+/* Firefox > 19 */
+:focus::-moz-placeholder {
+  color: orange;
 }
 
 #btn {
   border-radius: 6px;
   margin-left: 5px;
-  color: black;
+  color: orange;
   font-weight: 600;
   font-size: 17px;
+  background-color: black;
+  /* border-color: orange; */
 }
 
 #btn:hover {
-  color: orange;
-  background-color: black;
+  color: black;
+  background-color: orange;
 }
 
 select {
@@ -57,11 +70,12 @@ select {
 
 li {
   list-style: none;
+  text-align: left;
 }
 
 a {
   text-decoration: none;
-  color: orange;
+  color: white;
 }
 
 #points {
