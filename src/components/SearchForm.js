@@ -8,7 +8,7 @@ export default class SearchForm extends React.Component {
         <form className="label" onKeyUp={handleSubmit}>
           <label>
             <input
-              placeholder="HACKER NEWS SEARCH"
+              placeholder="SEARCH HACKER NEWS"
               type="text"
               value={state.input}
               onChange={handleChange}
