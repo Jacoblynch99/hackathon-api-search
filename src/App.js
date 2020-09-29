@@ -1,100 +1,102 @@
-import React, { Component } from "react"
-import "./App.css"
-import axios from "axios"
-import ListArticles from "./components/ListArticles"
-import SearchForm from "./components/SearchForm"
+import React, { Component } from "react";
+import "./App.css";
+import axios from "axios";
+import ListArticles from "./components/ListArticles";
+import SearchForm from "./components/SearchForm";
 
 class App extends Component {
   state = {
     articles: [],
     input: "",
     sortParam: "title",
-  }
+  };
 
   allStoriesFetch = () => {
     return axios
       .get(
-        `http://hn.algolia.com/api/v1/search?query=${this.state.input}&tags=story`
+        `https://hn.algolia.com/api/v1/search?query=${this.state.input}&tags=story`
       )
       .then((res) => {
-        const articles = res.data.hits
-        this.setState({ articles })
-      })
-  }
+        const articles = res.data.hits;
+        this.setState({ articles });
+      });
+  };
 
   tagFetch = () => {
     return axios
-      .get(`http://hn.algolia.com/api/v1/search?&tags=${this.state.input}`)
+      .get(`https://hn.algolia.com/api/v1/search?&tags=${this.state.input}`)
       .then((res) => {
-        const articles = res.data.hits
-        this.setState({ articles })
-      })
-  }
+        const articles = res.data.hits;
+        this.setState({ articles });
+      });
+  };
 
   dateFetch = () => {
     return axios
       .get(
-        `http://hn.algolia.com/api/v1/search_by_date?query=${this.state.input}&tags=story`
+        `https://hn.algolia.com/api/v1/search_by_date?query=${this.state.input}&tags=story`
       )
       .then((res) => {
-        const articles = res.data.hits
-        this.setState({ articles })
-      })
-  }
+        const articles = res.data.hits;
+        this.setState({ articles });
+      });
+  };
 
   authorFetch = () => {
     return axios
       .get(
-        `http://hn.algolia.com/api/v1/search?tags=story,author_${this.state.input}`
+        `https://hn.algolia.com/api/v1/search?tags=story,author_${this.state.input}`
       )
       .then((res) => {
-        const articles = res.data.hits
-        this.setState({ articles })
-      })
-  }
+        const articles = res.data.hits;
+        this.setState({ articles });
+      });
+  };
 
   authorSpanFetch = (spanValue) => {
     return axios
-      .get(`http://hn.algolia.com/api/v1/search?tags=story,author_${spanValue}`)
+      .get(
+        `https://hn.algolia.com/api/v1/search?tags=story,author_${spanValue}`
+      )
       .then((res) => {
-        const articles = res.data.hits
-        this.setState({ articles })
-      })
-  }
+        const articles = res.data.hits;
+        this.setState({ articles });
+      });
+  };
 
   onInput = (input) => {
-    this.setState({ input })
-  }
+    this.setState({ input });
+  };
 
   handleChange = (e) => {
-    this.setState({ input: e.target.value })
-  }
+    this.setState({ input: e.target.value });
+  };
 
   handleSubmit = (e) => {
-    const param = this.state.sortParam
-    e.preventDefault()
+    const param = this.state.sortParam;
+    e.preventDefault();
     if (param === "title") {
-      this.allStoriesFetch()
+      this.allStoriesFetch();
     } else if (param === "creation-date") {
-      this.dateFetch()
+      this.dateFetch();
     } else if (param === "tag") {
-      this.allStoriesFetch()
+      this.allStoriesFetch();
     } else if (param === "author") {
-      this.authorFetch()
+      this.authorFetch();
     }
-  }
+  };
 
   selectHandleChange = async (e) => {
-    await this.setState({ sortParam: e.target.value })
-    this.handleSubmit(e)
-  }
+    await this.setState({ sortParam: e.target.value });
+    this.handleSubmit(e);
+  };
 
   authorHandler = (spanValue) => {
-    this.authorSpanFetch(spanValue)
-  }
+    this.authorSpanFetch(spanValue);
+  };
 
   componentDidMount() {
-    this.allStoriesFetch()
+    this.allStoriesFetch();
   }
 
   render() {
@@ -116,8 +118,8 @@ class App extends Component {
           <ListArticles state={this.state} authorHandler={this.authorHandler} />
         </header>
       </div>
-    )
+    );
   }
 }
 
-export default App
+export default App;
